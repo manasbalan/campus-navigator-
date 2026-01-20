@@ -1,0 +1,7 @@
+{
+  "name": "Campus Navigator",
+  "description": "An interactive college campus map featuring a main block with classrooms, a cafeteria, a gym, and a stadium, integrated with an AI-powered campus assistant.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
