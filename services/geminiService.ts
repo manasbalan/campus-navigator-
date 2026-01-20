@@ -26,6 +26,7 @@ const getSystemInstruction = (accessibilityMode: boolean, locations: Location[])
     id: l.id,
     name: l.name,
     type: l.type,
+    coords: l.coordinates,
     rooms: l.rooms,
     features: l.features,
     events: l.events?.map(e => ({ id: e.id, title: e.title, time: e.time, category: e.category, description: e.description }))
@@ -38,16 +39,15 @@ CAMPUS DATA:
 ${JSON.stringify(campusContext)}
 
 BEHAVIORAL GUIDELINES:
-1. EVENTS: When asked about events (e.g., "What is happening at the Stadium?"), you MUST provide:
-   - Event Title
-   - Time
-   - A short, engaging detail (description).
-   Example: "The Titans vs. Knights game is at 6 PM Saturday! It's the biggest game of the season."
-2. NAVIGATION: Always call 'navigateToLocation' when a place or event is mentioned.
-3. CONCISE: Keep responses under 30 words.
-4. ${accessibilityMode ? 'ACCESSIBILITY: Describe event venues in spatial detail for navigation. Max 65 words.' : ''}
+1. DISTANCES: 1 coordinate unit is approximately 1.25 meters. If asked about distances, calculate the Euclidean distance between building centers.
+   - Example calculation: Distance = sqrt((x2-x1)^2 + (y2-y1)^2) * 1.25.
+   - Provide the distance in meters and walking time (assume 80 meters per minute).
+2. EVENTS: When asked about events, provide Title, Time, and a short detail.
+3. NAVIGATION: Always call 'navigateToLocation' when a place is mentioned.
+4. CONCISE: Keep responses under 30 words.
+5. ${accessibilityMode ? 'ACCESSIBILITY: Describe event venues in spatial detail for navigation. Max 65 words.' : ''}
 
-Always use the 'navigateToLocation' tool and include the 'eventId' if the user is asking about a specific event.
+Always use the 'navigateToLocation' tool for any place-related query.
 `;
 };
 
